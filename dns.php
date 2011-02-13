@@ -37,5 +37,4 @@ else
 }
 
 mysql_close();
-
 ?>
