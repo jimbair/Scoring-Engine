@@ -18,21 +18,7 @@ $NUMTEAMS = mysql_num_rows($result);
 
 print $NUMTEAMS;
 
-mysql_close();
-
-function FTP($server,$user,$pass){
- 
-	$connection = ftp_connect($server,21,5);
-
-	if(ftp_login($connection,$user,$pass))
-	{
-		return "SUCCESS";
-	}
-	else
-	{
-		return "DENIED";
-	}
-   
+ccdc::dbclose($con);
 }
 
 ?>
