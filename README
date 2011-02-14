@@ -1,0 +1,5 @@
+This program was designed as a scoring engine roughly equivalent to that used during the Collegiate Cyber Defense Competition (CCDC).  This was developed so that students preparing for the competition can get a taste of what to expect.  While originally developed for use by students at the University of Texas at San Antonio, this program was open-sourced so others may use it as a tool in preparation for the competition.
+
+If you find bugs or would like additional features, feel free to submit them via github.
+
+https://github.com/reedwilkins/Scoring-Engine
