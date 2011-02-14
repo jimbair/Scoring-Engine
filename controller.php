@@ -1,18 +1,17 @@
 #!/usr/bin/php
 
 <?
-//Get MySQL username from config file
-$CONFIGFILE = file_get_contents('.config');
-
-
-mysql_pconnect('localhost','root','P@ssw0rd');
-mysql_select_db('ccdc');
+require('class/ccdc.class.php');
 
 // Change max execution time to 1 minute
 set_time_limit(60);
 
-// Update attempt count
-$query = "SELECT name from teams'";
+$con = ccdc::pconnect();
+
+mysql_select_db('ccdc');
+
+// Update team count
+$query = "SELECT name from teams";
 $result = mysql_query($query);
 
 $NUMTEAMS = mysql_num_rows($result);
