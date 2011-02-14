@@ -10,21 +10,9 @@ $con = ccdc::pconnect();
 
 mysql_select_db('ccdc');
 
-// Update team count
-$query = "SELECT name from teams";
-$result = mysql_query($query);
+print "Number of teams: " . ccdc::numteams($con) . "\n";
 
-$NUMTEAMS = mysql_num_rows($result);
-
-print "Number of teams: $NUMTEAMS\n";
-
-// Update the number of services running
-$query = "SELECT name from services";
-$result = mysql_query($query);
-
-$numservices = mysql_num_rows($result);
-
-print "Number of services running: $numservices\n";
+print "Number of services running: " . ccdc::numservices($con) . "\n";
 
 ccdc::dbclose($con);
 
