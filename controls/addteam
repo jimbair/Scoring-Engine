@@ -1,0 +1,9 @@
+#!/usr/bin/php
+<?
+
+// Get the team name
+$TEAMNAME = $_SERVER['argv'];
+
+
+
+?>
