@@ -1,0 +1,32 @@
+#!/usr/bin/php
+<?
+	require('../class/ccdc.class.php');
+
+	$con = ccdc::pconnect();
+	mysql_select_db('ccdc');
+
+	// Check if arguments were passed
+	if($_SERVER['argc'] != 2)
+	{
+		print "\n========== Active Services ==========\n";
+		
+		$query = "SELECT DISTINCT(`name`) FROM services WHERE active = 1";
+		$services = mysql_query($query);
+		while($service = mysql_fetch_row($services))
+		{ print $service[0] . "\n"; }	
+
+		print "\nUsage: serviceoff name \n\n";
+	}
+	else
+	{
+		$name = $_SERVER['argv'][1];
+
+		$query = "UPDATE services SET active = 0 WHERE name = '$name'";
+		mysql_query($query);
+
+		print "Activated service $name\n\n";
+	}
+
+	ccdc::dbclose($con);
+
+?>
