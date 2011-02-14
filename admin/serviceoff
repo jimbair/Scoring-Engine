@@ -24,7 +24,7 @@
 		$query = "UPDATE services SET active = 0 WHERE name = '$name'";
 		mysql_query($query);
 
-		print "Activated service $name\n\n";
+		print "Deactivated service $name\n\n";
 	}
 
 	ccdc::dbclose($con);
