@@ -1,0 +1,15 @@
+===== Required Applications =====
+
+This application is designed to run on the LAMP stack.  You will need working installs of PHP, MySQL, and Apache.  As this system is modular, some modules may be written in other languages (e.g. Python), so you will need to check the requirements of the individual pollers separately.  Pollers that require special libraries should have this denoted in the code comments.
+
+===== Database Configuration =====
+
+The setup.py script is designed to create the database tables needed for this application to run.  Currently, this application is designed to only work with MySQL.
+
+===== Installation Instructions =====
+
+Once the database is configured, ensure the controller.php script is executable and add the following cron job:
+
+* * * * * /full/path/to/app/controller.php
+
+This will configure the pollers to run every minute, and can be set to any frequency you desire.
