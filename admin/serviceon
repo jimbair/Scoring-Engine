@@ -10,7 +10,7 @@
 	{
 		print "\n========== Inactive Services ==========\n";
 		
-		$query = "SELECT DISTINCT(`name`) FROM services";
+		$query = "SELECT DISTINCT(`name`) FROM services WHERE active = 0";
 		$services = mysql_query($query);
 		while($service = mysql_fetch_row($services))
 		{ print $service[0] . "\n"; }	
