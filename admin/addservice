@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?
+// Requires pwgen
 
 	require('../class/ccdc.class.php');
 	$pollerdir = '../pollers/';
@@ -8,16 +9,33 @@
 	mysql_select_db('ccdc');
 
 	// Check if arguments were passed
-	if(!isset($_SERVER['argv'][1]))
+	if($_SERVER['argc'] != 3)
 	{
 		$dh = opendir($pollerdir);
-		print "\nPoller Name\n=========================\n";
+		print "\n========== Available Pollers ==========\n";
 		while($poller = readdir($dh))
 			{ 
 				if(filetype($pollerdir . $poller) != "dir")
 				{ print "$poller\n"; }
 			}
-		print "\n";
+		print "\nUsage: addservice name poller\n\n";
+	}
+	else
+	{
+		$name = $_SERVER['argv'][1];
+		$location = $_SERVER['argv'][2];
+
+		$query = "SELECT * FROM teams";
+		$teamresults = mysql_query($query);
+
+		while($team = mysql_fetch_assoc($teamresults))
+		{
+			$user = exec('pwgen 8 1');
+			$pass = exec('pwgen 8 1');
+
+			$query = "INSERT INTO services VALUES ('$name', " . $team['id'] . ", '', '', '', '', 1, 'localhost', '$user', '$pass', '$location')";
+			mysql_query($query);
+		}
 	}
 /*
 	$query = "INSERT INTO teams VALUES ('','$teamname')";	
