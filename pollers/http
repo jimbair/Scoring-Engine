@@ -8,9 +8,9 @@ $HASH = '125887fd5bfc6f0bdba9264279063758';
 $output = DownloadUrl($URL);
 $md5 = md5($output);
 
-print "Output was: $output\n";
-print "MD5 is: $md5\n";
-print "Expected MD5: $HASH\n";
+//print "Output was: $output\n";
+//print "MD5 is: $md5\n";
+//print "Expected MD5: $HASH\n";
 
 // If the hashes match, update the success counter
 if ($md5 == $HASH)

@@ -2,6 +2,7 @@
 
 <?
 require('class/ccdc.class.php');
+$basedir = 'pollers/';
 
 // Change max execution time to 1 minute
 set_time_limit(60);
@@ -18,7 +19,19 @@ print "Number of services running: " . ccdc::numServices($con) . "\n";
 $activeservices = ccdc::getActiveServices($con);
 while($row = mysql_fetch_array($activeservices, MYSQL_ASSOC))
 {
-	print $row['name'] . "\n";
+	// Execute: poller host user pass
+	$status = exec($basedir . $row['poller'] . " " . $row['host'] . " " . $row['user'] . " " . $row['pass']);
+
+	if($status == "SUCCESS")
+	{
+		$query = "UPDATE services SET attempts = attempts + 1, success = success + 1, lastcheck = 1 WHERE name = '" . $row['name'] . "' AND teamid = " . $row['teamid'];
+		mysql_query($query);
+	}
+	else
+	{
+		$query = "UPDATE services SET attempts = attempts + 1 WHERE name = '" . $row['name'] . "' AND teamid = " . $row['teamid'];
+		mysql_query($query);
+	}
 }
 
 ccdc::dbclose($con);
