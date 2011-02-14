@@ -16,9 +16,16 @@ $result = mysql_query($query);
 
 $NUMTEAMS = mysql_num_rows($result);
 
-print $NUMTEAMS;
+print "Number of teams: $NUMTEAMS\n";
+
+// Update the number of services running
+$query = "SELECT name from services";
+$result = mysql_query($query);
+
+$numservices = mysql_num_rows($result);
+
+print "Number of services running: $numservices\n";
 
 ccdc::dbclose($con);
-}
 
 ?>
