@@ -10,9 +10,16 @@ $con = ccdc::pconnect();
 
 mysql_select_db('ccdc');
 
-print "Number of teams: " . ccdc::numteams($con) . "\n";
+print "Number of teams: " . ccdc::numTeams($con) . "\n";
 
-print "Number of services running: " . ccdc::numservices($con) . "\n";
+print "Number of services running: " . ccdc::numServices($con) . "\n";
+
+
+$activeservices = ccdc::getActiveServices($con);
+while($row = mysql_fetch_array($activeservices, MYSQL_ASSOC))
+{
+	print $row['name'] . "\n";
+}
 
 ccdc::dbclose($con);
 

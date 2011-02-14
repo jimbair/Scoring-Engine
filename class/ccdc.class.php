@@ -34,7 +34,7 @@ class ccdc
 
 	}
 
-	public static function numteams($con)
+	public static function numTeams($con)
 	{
 		// Update team count
 		$query = "SELECT name from teams";
@@ -43,13 +43,22 @@ class ccdc
 		return mysql_num_rows($result);
 	}
 
-	public static function numservices($con)
+	public static function numServices($con)
 	{
 		// Update the number of services running
 		$query = "SELECT name from services";
 		$result = mysql_query($query,$con);
 		
 		return mysql_num_rows($result);
+	}
+
+	public static function getActiveServices($con)
+	{
+		// Get all active services
+		$query = "SELECT * FROM services";
+		$result = mysql_query($query,$con);
+
+		return $result;
 	}
 
 }
