@@ -53,13 +53,13 @@ def main():
     usage = "usage: %prog [options] hostname"
     parser = OptionParser(usage)
     
-    parser.add_option('-u', '--username', default='legituser',
+    parser.add_option('-u', '--user', default='legituser',
                       action='store', type='string',
-                      help="Username", metavar='username')
+                      help="Username", metavar='user')
 
-    parser.add_option('-p', '--password', default='legitp4ssw0rd',
+    parser.add_option('-p', '--pass', default='legitp4ssw0rd',
                       action='store', type='string',
-                      help="Password", metavar='p4ssw0rD')
+                      help="Password", metavar='pass')
 
     parser.add_option('-P', '--port', default=22,
                       action='store', type='int',
