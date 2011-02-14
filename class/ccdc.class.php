@@ -55,7 +55,7 @@ class ccdc
 	public static function getActiveServices($con)
 	{
 		// Get all active services
-		$query = "SELECT * FROM services";
+		$query = "SELECT * FROM services WHERE active = 1";
 		$result = mysql_query($query,$con);
 
 		return $result;
