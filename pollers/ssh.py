@@ -1,6 +1,27 @@
 #!/usr/bin/python
 # Module to check if an SSH server is online and listening.
 # Verifies if the username/password provided works.
+#
+# Required modules:
+# paramiko
+# 
+# This module can be found on both yum and apt for most dists.
+#
+# Copyright (C) 2011 James Bair <james.d.bair@gmail.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import paramiko
 import sys
@@ -14,6 +35,7 @@ def checkSSH(hostname, port, username, password, timeout):
     """
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # Still need to add specific exceptions here
     try:
         ssh.connect(hostname, port=port, username=username,
                     password=password, timeout=timeout)
@@ -28,7 +50,8 @@ def main():
     """
 
     # Build our options to parse
-    parser = OptionParser()
+    usage = "usage: %prog [options] hostname"
+    parser = OptionParser(usage)
     
     parser.add_option('-u', '--username', default='legituser',
                       action='store', type='string',
@@ -46,22 +69,16 @@ def main():
                       action='store', type='int',
                       help="SSH Timeout", metavar='3')
 
-    parser.add_option('-H', '--hostname',
-                      action='store', type='string',
-                      help="SSH Server", metavar='server.com')
-
     # Build our options
     (opt, arg) = parser.parse_args()
 
     # This should not have a default value
-    if opt.hostname is None:
-        msg = 'Error: You must provide a hostname.\n'
-        msg += '       Use --help for more information.\n'
-        sys.stderr.write(msg)
-        sys.exit(1)
+    if len(arg) != 1:
+        msg = 'You must provide a hostname.\n'
+        parser.error(msg) 
 
     # Connect to the SSH server
-    result = checkSSH(hostname=opt.hostname, port=opt.port,
+    result = checkSSH(hostname=arg[0], port=opt.port,
                       username=opt.username, password=opt.password,
                       timeout=opt.timeout)
 
