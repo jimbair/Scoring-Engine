@@ -4,7 +4,7 @@ This application is designed to run on the LAMP stack.  You will need working in
 
 ===== Database Configuration =====
 
-The setup.py script is designed to create the database tables needed for this application to run.  Currently, this application is designed to only work with MySQL.
+The setup.php script is designed to create the database tables needed for this application to run.  Currently, this application is designed to only work with MySQL. Before running setup.php, you must configure the settings of your MySQL server in the .config file.
 
 ===== Installation Instructions =====
 
