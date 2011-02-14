@@ -1,0 +1,36 @@
+#!/usr/bin/php
+<?
+
+	require('../class/ccdc.class.php');
+	$pollerdir = '../pollers/';
+
+	$con = ccdc::pconnect();
+	mysql_select_db('ccdc');
+
+	// Check if arguments were passed
+	if(!isset($_SERVER['argv'][1]))
+	{
+		$dh = opendir($pollerdir);
+		print "\nPoller Name\n=========================\n";
+		while($poller = readdir($dh))
+			{ 
+				if(filetype($pollerdir . $poller) != "dir")
+				{ print "$poller\n"; }
+			}
+		print "\n";
+	}
+/*
+	$query = "INSERT INTO teams VALUES ('','$teamname')";	
+	mysql_query($query,$con);
+
+	$query = "SELECT id FROM teams WHERE name = '$teamname'";
+	$result = mysql_query($query,$con);	
+
+	$row = mysql_fetch_array($result);
+	$teamnum = $row[0];
+
+	print "Added team id $teamnum: $teamname\n";
+*/
+	ccdc::dbclose($con);
+
+?>
