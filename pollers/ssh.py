@@ -74,7 +74,7 @@ def main():
 
     # This should not have a default value
     if len(arg) != 1:
-        msg = 'You must provide a hostname.\n'
+        msg = 'You must provide a hostname.'
         parser.error(msg) 
 
     # Connect to the SSH server

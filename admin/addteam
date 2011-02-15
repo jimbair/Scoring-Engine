@@ -1,0 +1,24 @@
+#!/usr/bin/php
+<?
+
+	require('../class/ccdc.class.php');
+
+	$con = ccdc::pconnect();
+	mysql_select_db('ccdc');
+
+	$teamname = $_SERVER['argv'][1];
+
+	$query = "INSERT INTO teams VALUES ('','$teamname')";	
+	mysql_query($query,$con);
+
+	$query = "SELECT id FROM teams WHERE name = '$teamname'";
+	$result = mysql_query($query,$con);	
+
+	$row = mysql_fetch_array($result);
+	$teamnum = $row[0];
+
+	print "Added team id $teamnum: $teamname\n";
+
+	ccdc::dbclose($con);
+
+?>
