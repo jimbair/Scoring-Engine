@@ -1,0 +1,39 @@
+#!/usr/bin/php
+
+<?
+// I highly suggest you set the mysql.connect_timeout to something
+// low, like 3, or this will hang for the default timeout (60 seconds)
+// if no mysql daemon is present on the target host
+
+$SERVER = $_SERVER['argv'][1];
+$USER = $_SERVER['argv'][2];
+$PASS = $_SERVER['argv'][3];
+$DB = 'checkdb';
+$QUERY = 'SELECT checkstring FROM checktable LIMIT 1';
+$EXPECTED = "cybercloudwarrior";
+
+// Attempt to connect to the FTP server
+$output = TRYMYSQL($SERVER,$USER,$PASS,$DB,$QUERY);
+
+if($output == $EXPECTED)
+	{ print "SUCCESS"; }
+else
+	{ print "FAILURE"; }
+
+function TRYMYSQL($server,$user,$pass,$db,$query){
+ 
+	$connection = mysql_connect($server,$user,$pass,false,3);
+	mysql_select_db($db, $connection);
+
+	if($connection)
+	{
+		$result = mysql_query($query);
+		$row = mysql_fetch_row($result);
+		return $row[0];
+	}
+	else
+	{ return; }
+ 
+}
+
+?>
