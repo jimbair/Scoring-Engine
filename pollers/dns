@@ -15,5 +15,5 @@ $output = exec("dig +short $RECORD @$SERVER");
 if ($output == $EXPECTED)
 { print "SUCCESS"; }
 else
-{ print "SUCCESS"; }
+{ print "FAILURE"; }
 ?>
