@@ -1,16 +1,15 @@
 #!/usr/bin/php
 
 <?
-set_time_limit(3);
 $SERVER = $_SERVER['argv'][1];
 $RECORD = $_SERVER['argv'][2]; 
 $EXPECTED = $_SERVER['argv'][3];
 
-// Get the contents of the URL and the MD5
-$output = exec("dig +short $RECORD @$SERVER");
+// Try to get the IP - Kill if takes longer than 3 seconds
+$output = exec("dig +short $RECORD @$SERVER & sleep 3; kill $!");
 
-//print "Output was: $output\n";
-//print "Expected was: $EXPECTED\n";
+print "Output was: $output\n";
+print "Expected was: $EXPECTED\n";
 
 if ($output == $EXPECTED)
 { print "SUCCESS"; }
