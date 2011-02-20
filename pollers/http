@@ -44,7 +44,7 @@ function DownloadUrl($Url){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
     // timeout in seconds
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
 
     // download the given URL, and return output
     $output = curl_exec($ch);
