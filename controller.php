@@ -3,6 +3,7 @@
 <?
 require('class/ccdc.class.php');
 $basedir = 'pollers/';
+print $_SERVER['DOCUMENT_ROOT'];
 
 // Change max execution time to 1 minute
 set_time_limit(60);
@@ -22,14 +23,14 @@ while($row = mysql_fetch_array($activeservices, MYSQL_ASSOC))
 	// Execute: poller host user pass
 	$status = exec($basedir . $row['poller'] . " " . $row['host'] . " " . $row['user'] . " " . $row['pass']);
 
-	if($status == "SUCCESS")
+	if(trim($status) == "SUCCESS")
 	{
 		$query = "UPDATE services SET attempts = attempts + 1, success = success + 1, lastcheck = 1 WHERE name = '" . $row['name'] . "' AND teamid = " . $row['teamid'];
 		mysql_query($query);
 	}
 	else
 	{
-		$query = "UPDATE services SET attempts = attempts + 1 WHERE name = '" . $row['name'] . "' AND teamid = " . $row['teamid'];
+		$query = "UPDATE services SET attempts = attempts + 1, lastcheck = 0 WHERE name = '" . $row['name'] . "' AND teamid = " . $row['teamid'];
 		mysql_query($query);
 	}
 }
