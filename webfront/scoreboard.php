@@ -65,13 +65,12 @@ mysql_num_rows($result);
 // Start the table
 print '<center><table style="color: white;"><tr style="font-size: x-large;"><th>Service</th><th>Attempts</th><th>Successful</th><th>Uptime</th></tr>';
 
-while( $row = mysql_fetch_array($result) )
+while( $row = mysql_fetch_assoc($result) )
 {
 	// Check if service was up at alst polling
-	$class = ($row[3] == 1) ? 'up' : 'down';
+	$class = ($row['lastcheck'] == 1) ? 'up' : 'down';
 
-	print '<tr style="font-size: large;"><td class=\'' . $class . '\'>' . $row[0] . '</td><td>' . $row[1] . '</td><td>' . $row[2] . '</td>' . 
-	'<td>' . round( ($row[2] / $row[1] *100), 1) . '%</td></tr>';
+	print '<tr style="font-size: large;"><td class=\'' . $class . '\'>' . $row['name'] . '</td><td>' . $row['attempts'] . '</td><td>' . $row['success'] . '</td>' . '<td>' . round( ($row['success'] / $row['attempts'] *100), 1) . '%</td></tr>';
 }
 
 // End the table
