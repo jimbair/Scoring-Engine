@@ -20,13 +20,11 @@ else
 {
 	if($currteam < $numteams)
 	{
-		//header('refresh: 5; url=http://' . $here . '?team=' . $currteam + 1);
-		print '<meta http-equiv="refresh" content="10;url=http://' . $here . '?team=' . ($currteam +1) . '">';
+		print '<meta http-equiv="refresh" content="15;url=http://' . $here . '?team=' . ($currteam +1) . '">';
 	} 
 	else
 	{
-		//header('refresh: 5; url=http://' . $here . '?team=1');
-		print '<meta http-equiv="refresh" content="10;url=http://' . $here . '?team=1">';
+		print '<meta http-equiv="refresh" content="15;url=http://' . $here . '?team=1">';
 	}
 }
 
