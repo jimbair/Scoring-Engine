@@ -1,7 +1,48 @@
 <html>
 <head>
-	<meta http-equiv="refresh" content="60">
-	<title>CCDC Practice Scoreboard</title>
+<?
+require('../class/ccdc.class.php');
+
+$con = ccdc::pconnect();
+
+mysql_select_db('ccdc');
+
+$numteams = ccdc::numteams($con);
+$currteam = $_GET['team'];
+
+$here = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+
+if(empty($currteam))
+{
+	header('location:?team=1');	
+}
+else
+{
+	if($currteam < $numteams)
+	{
+		//header('refresh: 5; url=http://' . $here . '?team=' . $currteam + 1);
+		print '<meta http-equiv="refresh" content="10;url=http://' . $here . '?team=' . ($currteam +1) . '">';
+	} 
+	else
+	{
+		//header('refresh: 5; url=http://' . $here . '?team=1');
+		print '<meta http-equiv="refresh" content="10;url=http://' . $here . '?team=1">';
+	}
+}
+
+// Get current team's id
+$query = "SELECT id FROM teams limit " . ($currteam -1) . ", 1";
+$row = mysql_fetch_row(mysql_query($query));
+$teamid = $row[0];
+
+$query = "SELECT * FROM teams WHERE id = $teamid";
+$result = mysql_query($query);
+$teaminfo = mysql_fetch_assoc($result);
+print_r($teaminfo);
+?>
+
+<title>CCDC Practice Scoreboard</title>
+
 
 <style type="text/css">
 	.up { background: green; }
@@ -12,13 +53,11 @@
 </head>
 <body bgcolor="black">
 	<br />
-	<center><h1 style="color: white;">CCDC Practice Scoreboard</h1></center>
+	<center><h1 style="color: white;"><? print $teaminfo['name']; ?></h1></center>
 
 <?
-mysql_connect('localhost','root','P@ssw0rd');
-mysql_select_db('ccdc');
 
-$query = "SELECT * from services";
+$query = "SELECT * from services WHERE teamid = $teamid AND active = 1";
 $result = mysql_query($query);
 
 mysql_num_rows($result);
