@@ -11,7 +11,7 @@ print $output;
 
 function FTP($server,$user,$pass){
  
-	$connection = ftp_connect($server,21,3);
+	$connection = ftp_connect($server,21,2);
 
 	if(ftp_login($connection,$user,$pass))
 	{

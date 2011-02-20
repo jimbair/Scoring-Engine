@@ -22,7 +22,7 @@ else
 
 function TRYMYSQL($server,$user,$pass,$db,$query){
  
-	$connection = mysql_connect($server,$user,$pass,false,3);
+	$connection = mysql_connect($server,$user,$pass,false,2);
 	mysql_select_db($db, $connection);
 
 	if($connection)

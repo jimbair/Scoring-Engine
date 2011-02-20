@@ -11,7 +11,7 @@ print $output;
 
 function POP3($server,$user,$pass,$folder="INBOX",$ssl=false)
 { 
-	imap_timeout(IMAP_READTIMEOUT, 3); 
+	imap_timeout(IMAP_READTIMEOUT, 2); 
 	$ssl=($ssl==false)?"/novalidate-cert":""; 
     if (imap_open("{"."$server:110/pop3$ssl"."}$folder",$user,$pass))
 	{
