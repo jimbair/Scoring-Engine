@@ -57,7 +57,7 @@ def main():
                       action='store', type='string',
                       help="Username", metavar='user')
 
-    parser.add_option('-p', '--pass', default='legitp4ssw0rd',
+    parser.add_option('-p', '--password', default='legitp4ssw0rd',
                       action='store', type='string',
                       help="Password", metavar='pass')
 
@@ -79,7 +79,7 @@ def main():
 
     # Connect to the SSH server
     result = checkSSH(hostname=arg[0], port=opt.port,
-                      username=opt.username, password=opt.password,
+                      username=opt.user, password=opt.password,
                       timeout=opt.timeout)
 
     # Return our result for the master process to update the db    
