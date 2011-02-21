@@ -14,18 +14,37 @@
 	if($_SERVER['argc'] == 2)
 
 	{
+		// Find our team name passed by the user
 		$teamname = $_SERVER['argv'][1];
 
-		$query = "INSERT INTO teams VALUES ('','$teamname')";	
-		mysql_query($query,$con);
-
-		$query = "SELECT id FROM teams WHERE name = '$teamname'";
-		$result = mysql_query($query,$con);	
-
+		// Find if the team name already exists
+		$query = "SELECT name FROM teams WHERE name = '$teamname'";
+		$result = mysql_query($query,$con);
 		$row = mysql_fetch_array($result);
-		$teamnum = $row[0];
+		$exists = $row[0];
 
-		print "Added team id $teamnum: $teamname\n";
+		// If it does, don't add it again.
+		if ($exists == $teamname)
+
+		{
+			print "Error: $teamname already exists.\n";
+		}
+
+		// Otherwise, add away!
+		else
+
+		{
+			$query = "INSERT INTO teams VALUES ('','$teamname')";	
+			mysql_query($query,$con);
+
+			$query = "SELECT id FROM teams WHERE name = '$teamname'";
+			$result = mysql_query($query,$con);	
+
+			$row = mysql_fetch_array($result);
+			$teamnum = $row[0];
+
+			print "Added team id $teamnum: $teamname\n";
+		}
 	}
 
 	// If we are here, we were not passed the proper args.
