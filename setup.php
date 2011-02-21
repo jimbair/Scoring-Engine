@@ -2,6 +2,18 @@
 
 <?
 
+	// Add system commands here that we need to check
+	$commands = array('dig', 'pwgen');
+
+	foreach ($commands as &$command) {
+        	exec($command . ' --help 2>&1',$output,$status);
+        	if ($status == '127')
+        	{
+        	        print "You are missing the following dependency: $command\n";
+        	        exit;
+        	}
+	}
+
 	require('class/ccdc.class.php');
 
 	$con = ccdc::pconnect();
