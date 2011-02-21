@@ -15,8 +15,9 @@
 	}
 
 	// Check for python modules we need
-	$pymods = array('paramiko')
-	foreach ($module as &$pymods) {
+	$pymods = array('paramiko');
+
+	foreach ($pymods as &$module) {
 		$command = "python -c 'import $module' 2>&1";
 		exec($command,$output,$status);
 		if ($status == '1')
