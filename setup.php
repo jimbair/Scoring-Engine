@@ -6,12 +6,24 @@
 	$commands = array('dig', 'pwgen');
 
 	foreach ($commands as &$command) {
-        	exec($command . ' --help 2>&1',$output,$status);
-        	if ($status == '127')
-        	{
-        	        print "You are missing the following dependency: $command\n";
-        	        exit;
-        	}
+		exec($command . ' --help 2>&1',$output,$status);
+		if ($status == '127')
+		{
+			print "You are missing the following dependency: $command\n";
+			exit;
+		}
+	}
+
+	// Check for python modules we need
+	$pymods = array('paramiko')
+	foreach ($module as &$pymods) {
+		$command = "python -c 'import $module' 2>&1";
+		exec($command,$output,$status);
+		if ($status == '1')
+		{
+			print "You are missing the following Python module: $module\n";
+			exit;
+		}
 	}
 
 	require('class/ccdc.class.php');
