@@ -3,22 +3,39 @@
 
 	require('../class/ccdc.class.php');
 
+	// Connect to the DB
 	$con = ccdc::pconnect();
 	mysql_select_db('ccdc');
 
-	$teamname = $_SERVER['argv'][1];
+	// Find the file name dynamically
+	$prog =  basename($_SERVER['argv'][0]);
 
-	$query = "INSERT INTO teams VALUES ('','$teamname')";	
-	mysql_query($query,$con);
+	// Check if arguments were passed
+	if($_SERVER['argc'] == 2)
 
-	$query = "SELECT id FROM teams WHERE name = '$teamname'";
-	$result = mysql_query($query,$con);	
+	{
+		$teamname = $_SERVER['argv'][1];
 
-	$row = mysql_fetch_array($result);
-	$teamnum = $row[0];
+		$query = "INSERT INTO teams VALUES ('','$teamname')";	
+		mysql_query($query,$con);
 
-	print "Added team id $teamnum: $teamname\n";
+		$query = "SELECT id FROM teams WHERE name = '$teamname'";
+		$result = mysql_query($query,$con);	
 
+		$row = mysql_fetch_array($result);
+		$teamnum = $row[0];
+
+		print "Added team id $teamnum: $teamname\n";
+	}
+
+	// If we are here, we were not passed the proper args.
+	else
+
+	{
+		print "Usage: $prog name\n";
+	}
+	
+	// Close the DB
 	ccdc::dbclose($con);
 
 ?>
