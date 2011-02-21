@@ -7,9 +7,18 @@
 
 	foreach ($commands as &$command) {
 		exec($command . ' --help 2>&1',$output,$status);
-		if ($status == '127')
-		{
+		if ($status == '127') {
 			print "You are missing the following dependency: $command\n";
+			exit;
+		}
+	}
+
+	// Check for php modules we need
+	$phpmods = array('mysql');
+
+	foreach ($phpmods as &$module) {
+		if (!extension_loaded("$module")) {
+			print "You are missing the following PHP module: $module\n";
 			exit;
 		}
 	}
@@ -20,13 +29,13 @@
 	foreach ($pymods as &$module) {
 		$command = "python -c 'import $module' 2>&1";
 		exec($command,$output,$status);
-		if ($status == '1')
-		{
+		if ($status == '1') {
 			print "You are missing the following Python module: $module\n";
 			exit;
 		}
 	}
 
+	// We have everything we need. Start doing some work.
 	require('class/ccdc.class.php');
 
 	$con = ccdc::pconnect();
